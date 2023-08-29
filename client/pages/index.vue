@@ -92,9 +92,11 @@
 
 	let selected = ref()
 	let isClicked = ref(false)
+	let listOfYears = []
 	
 	const {filters} = filtering(selected)
 	const {sorts} = sorting(isClicked)
+	const {getSelectedYear} = getSelectedYears()
 
 	function toggleClick() { // toggle click
 		isClicked.value = !isClicked.value
@@ -135,24 +137,5 @@
 				.sort((a:any, b:any) => sorts(a, b))
 	})
 
-	// .......................................................................................
-
-	let listOfYears = []
-
-	async function getSelectedYear(option: string | null) {
-		for(let i in data.value?.launches){
-			let getDate = data.value.launches[i].launch_date_utc // get date in utc format
-			let convertDate = new Date(getDate).toLocaleDateString() // convert date to mm/dd/yy
-
-			let getDateByYear = convertDate.slice(-4) // get year only
-
-			// prevent duplication
-			if(listOfYears.indexOf(getDateByYear) === -1 && option == null){
-				listOfYears.push(getDateByYear)
-			}
-		}
-	}
-
-	getSelectedYear(null)
-
+	getSelectedYear(data, listOfYears)
 </script>

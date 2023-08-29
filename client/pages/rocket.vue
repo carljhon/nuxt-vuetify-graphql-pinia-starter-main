@@ -139,5 +139,4 @@
 	const rockets = computed(()=> {
 		return data.value?.rockets ?? []
 	})
-
 </script>
