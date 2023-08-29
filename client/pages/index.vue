@@ -88,12 +88,14 @@
 </template>
 
 <script lang="ts" setup>
-	import {ref, computed} from 'vue'
+	import { storeToRefs } from '@pinia/nuxt/dist/runtime/composables'
+import {ref, computed} from 'vue'
 
 	let selected = ref()
 	let isClicked = ref(false)
 	
 	const {filters} = filtering(selected)
+	const {sorts} = sorting(isClicked)
 
 	function toggleClick() { // toggle click
 		isClicked.value = !isClicked.value
@@ -129,23 +131,10 @@
 	}>(query)
 
 	const launches = computed(()=> {
-		return data.value?.launches.filter((i)=> {
-			let getDate = new Date(i.launch_date_utc).toLocaleDateString() // convert date to mm/dd/yy
-			let getDateByYear = getDate.slice(-4) // get year only
-
-			return getDateByYear.match(selected.value) // match the selected year to all launches list
-		}).sort((a, b)=> {
-			let getDate_A = new Date(a.launch_date_utc)
-			let getDate_B = new Date(b.launch_date_utc)
-			
-			if(isClicked.value == true){
-				return getDate_B - getDate_A
-			} else {
-				return getDate_A - getDate_B
-			}
-		})
+		return data.value?.launches
+				.filter((i: any) => filters(i))
+				.sort((a:any, b:any) => sorts(a, b))
 	})
-
 
 	// .......................................................................................
 
