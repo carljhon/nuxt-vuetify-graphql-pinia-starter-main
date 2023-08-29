@@ -88,8 +88,7 @@
 </template>
 
 <script lang="ts" setup>
-	import { storeToRefs } from '@pinia/nuxt/dist/runtime/composables'
-import {ref, computed} from 'vue'
+	import {ref, computed} from 'vue'
 
 	let selected = ref()
 	let isClicked = ref(false)
