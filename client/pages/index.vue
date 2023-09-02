@@ -3,6 +3,7 @@
 </style>
 
 <template>
+	<title>Launches</title>
 	<v-container id="jj">
 		<h2>
 			<v-icon icon="mdi-vuetify" />
@@ -80,6 +81,11 @@
 						<a :href="item.links.wikipedia" target="_blank">
 							<v-btn color="deep-purple lighten-2">See More</v-btn>
 						</a>
+
+						<v-btn 
+							color="red-accent-4 fa fa-heart-o" 
+							class="ml-auto font-weight-bold"
+						></v-btn>
 					</v-card-actions>
 				</v-card>
 			</v-flex>

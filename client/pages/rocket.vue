@@ -3,6 +3,7 @@
 </style>
 
 <template>
+    <title>Rockets</title>
 	<v-container id="jj">
 		<h2>
 			<v-icon icon="mdi-vuetify" />
