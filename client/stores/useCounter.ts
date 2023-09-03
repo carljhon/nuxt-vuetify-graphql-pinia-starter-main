@@ -1,11 +1,23 @@
+import { defineStore } from 'pinia'
+
 export const useCounter = defineStore('counter', {
-	state: () => ({ count: 0 }),
+	state: () => ({ 
+		listOfFav: []
+	}),
+	persist: {
+		storage: persistedState.sessionStorage,
+	},
 	getters: {
-		doubleCount: (state) => state.count * 2,
+		getListOfFav: (state) => {
+			return state.listOfFav
+		}
 	},
 	actions: {
-		increment() {
-			this.count++
-		},
+		addItemValue(a: any) {
+			// prevent duplicate
+			if(this.listOfFav.indexOf(a) === -1){
+				this.listOfFav.push(a) //add to list of favorite
+			}
+		}
 	},
 })

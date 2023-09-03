@@ -83,9 +83,12 @@
 						</a>
 
 						<v-btn 
-							color="red-accent-4 fa fa-heart-o" 
+							color="red-accent-4" 
 							class="ml-auto font-weight-bold"
-						></v-btn>
+							@click="useCounters.addItemValue(item)"
+						>
+							<v-icon>{{ check(item) ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+						</v-btn>
 					</v-card-actions>
 				</v-card>
 			</v-flex>
@@ -95,10 +98,13 @@
 
 <script lang="ts" setup>
 	import {ref, computed} from 'vue'
+	import {useCounter} from '@/stores/useCounter'
 
 	let selected = ref()
 	let isClicked = ref(false)
 	let listOfYears = []
+
+	const useCounters = useCounter()
 	
 	const {filters} = filtering(selected)
 	const {sorts} = sorting(isClicked)
@@ -144,4 +150,16 @@
 	})
 
 	getSelectedYear(data, listOfYears)
+
+
+	// check if favorite or not
+	function check(item: any){
+		for(let i in useCounters.getListOfFav){
+			if(useCounters.getListOfFav[i] == item){
+				return true
+			}
+		}
+
+		return false
+	}
 </script>

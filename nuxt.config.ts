@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 			default: { httpEndpoint: 'https://spacex-production.up.railway.app/' },
 		},
 	},
-	modules: ['@nuxtjs/apollo', ['@pinia/nuxt', { autoImports: ['defineStore', 'acceptHMRUpdate'] }]],
+	modules: ['@nuxtjs/apollo', '@pinia-plugin-persistedstate/nuxt', ['@pinia/nuxt', { autoImports: ['defineStore', 'acceptHMRUpdate'] }]],
 	hooks: {
 		'vite:extendConfig': (config: InlineConfig) => {
 			config?.plugins?.push(vuetify())

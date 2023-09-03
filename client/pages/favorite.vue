@@ -1,75 +1,54 @@
 <template>
-    <v-card
-      class="mx-auto"
-      max-width="1500"
-    >
-      <v-toolbar color="secondary">
-        <v-btn variant="text" icon="mdi-menu"></v-btn>
-  
-        <v-toolbar-title>My files</v-toolbar-title>
-  
-        <v-spacer></v-spacer>
-  
-        <v-btn variant="text" icon="mdi-magnify"></v-btn>
-  
-        <v-btn variant="text" icon="mdi-view-module"></v-btn>
-      </v-toolbar>
-  
-      <v-list lines="three">
-        <v-list-subheader inset>Rockets</v-list-subheader>
-  
-        <v-list-item
-          v-for="folder in folders"
-          :key="folder.title"
-          :title="folder.title"
-          :subtitle="folder.subtitle"
-          >
-          
-          <template v-slot:subtitle="{ subtitle }">
-            <div v-html="subtitle"></div>
+  <v-card
+    class="mx-auto"
+    max-width="1200"
+  >
+    <v-toolbar color="red-accent-4">
+      <v-toolbar-title class="text-h6 text-center">
+        My Favorite Rockets
+      </v-toolbar-title>
+    </v-toolbar>
+
+    <v-list lines="three">
+
+      <v-list-item
+        v-for="item in useCounters.listOfFav"
+        :key="item.mission_name"
+        :title="item.rocket.rocket_name"
+        :subtitle=setNewDate(item.launch_date_utc)
+        >
+
+        <i>{{ item.mission_name }} - {{ item.details }}</i>
+        
+        <template v-slot:prepend>
+          <v-avatar color="grey-lighten-1">
+            <v-icon color="white">mdi-rocket-launch</v-icon>
+          </v-avatar>
         </template>
 
-          <template v-slot:prepend>
-            <v-avatar color="grey-lighten-1">
-              <v-icon color="white">mdi-rocket-launch</v-icon>
-            </v-avatar>
-          </template>
-  
-          <template v-slot:append>
-            <v-btn
-              color="grey-lighten-1"
-              icon="mdi-close-thick"
-              variant="text"
-            ></v-btn>
-          </template>
+        <template v-slot:append>
+          <v-btn
+            color="grey-lighten-1"
+            icon="mdi-close-thick"
+            variant="text"
+          ></v-btn>
+        </template>
 
-          <v-divider inset></v-divider>
+        <v-divider inset></v-divider>
 
-        </v-list-item>
+      </v-list-item>
 
-      </v-list>
-    </v-card>
-  </template>
+    </v-list>
+  </v-card>
+</template>
 
-<script>
-  export default {
-    data: () => ({
-      folders: [
-        {
-          subtitle: `
-            <span class="text-primary">Trailblazer</span>
-            &mdash; Residual stage 1 thrust led to collision between stage 1 and stage 2`,
-          title: 'Falcon 1',
-        },
-        {
-          subtitle: 'Jan 17, 2014',
-          title: 'Falcon 2',
-        },
-        {
-          subtitle: 'Jan 28, 2014',
-          title: 'Volt 5',
-        },
-      ],
-    }),
+
+<script lang="ts" setup>
+  import {useCounter} from '@/stores/useCounter'
+
+  const useCounters = useCounter()
+
+  function setNewDate(e: any){
+    return new Date(e).toLocaleDateString()
   }
 </script>
