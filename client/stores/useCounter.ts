@@ -18,6 +18,11 @@ export const useCounter = defineStore('counter', {
 			if(this.listOfFav.indexOf(a) === -1){
 				this.listOfFav.push(a) //add to list of favorite
 			}
+		},
+		removeItemValue(r: any){
+			if(this.listOfFav.includes(r)){
+				console.log(true)
+			}
 		}
 	},
 })
