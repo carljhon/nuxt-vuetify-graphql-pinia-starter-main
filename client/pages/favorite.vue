@@ -18,7 +18,7 @@
         :subtitle=setNewDate(item.launch_date_utc)
         >
 
-        <i>{{ item.mission_name }} - {{ item.details }}</i>
+        <i style="color: gray;">{{ item.mission_name }} - {{ item.details }}</i>
         
         <template v-slot:prepend>
           <v-avatar color="grey-lighten-1">
@@ -31,6 +31,7 @@
             color="grey-lighten-1"
             icon="mdi-close-thick"
             variant="text"
+            @click=close(item)
           ></v-btn>
         </template>
 
@@ -50,5 +51,9 @@
 
   function setNewDate(e: any){
     return new Date(e).toLocaleDateString()
+  }
+
+  function close(r: any) {
+    useCounters.removeItemValue(r)
   }
 </script>
